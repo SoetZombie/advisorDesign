@@ -1,0 +1,100 @@
+﻿@using System.Web.UI.WebControls
+@model AdvisorDesign.Models.StudentRegisterModel
+
+<div class="advisor-static">
+    <div class=" register-page">
+        <div class="container">
+            <div class="register-content row col-md-9 col-lg-9 mx-auto">
+
+                <div class="register-header-wrap">
+                    <h2 class="main-heading register">Chci se registrovat (žák/student)</h2>
+                    <span class="basic-text"> Registrace pro individuální licence (RA private), kteří mají zakoupený balíček <a href="">zde</a></span>
+                </div>
+
+                <div class="register-fields align-self-center">
+                    <div class="gender-choice">
+                        <span class="gender-text">Vaše pohlaví, pro oslovení v aplikaci:</span>
+                        @Html.RadioButtonFor(m => m.Gender, "M", new { @class = "male-gender", id = "male" })
+                        <label for="male" class="male-label male checked">
+                        </label>
+                        @Html.RadioButtonFor(m => m.Gender, "F", new { @class = "female-gender", id = "female" })
+                        <label for="female" class="female-label female">
+                        </label>
+                    </div>
+                    <div class="register-common">
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Jméno a přijmení" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = "Přihlašovací e-mail" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                        <div class="password-boxes">
+                            @Html.PasswordFor(m => m.Password, new { placeholder = "Heslo do aplikace" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                            <div class="fa fa-eye-slash"></div>
+                        </div>
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Znovu heslo pro kontrolu" })
+                        @Html.ValidationMessageFor(m => m.Password)
+
+                    </div>
+                    
+
+
+                    <div class="license-key-wrap school-data">
+
+                        <div class="student-school">
+                            @Html.DropDownListFor(m => m.SchoolName, Model.SchoolName ,new { placeholder = "Název školy", @class="form-control", @id="select-school"})
+                            @Html.ValidationMessageFor(m => m.SchoolName)
+
+                        </div>
+                        <div class="student-class">
+                            @Html.DropDownListFor(m => m.ClassName, Model.ClassName, new { placeholder = "Třida", @class="form-control", @id="select-class" })
+                            @Html.ValidationMessageFor(m => m.ClassName)
+                        </div>
+                        <div class="license-key">
+                            @Html.TextBoxFor(m => m.SchoolCode, new { placeholder = "Kód školy" })
+                            @Html.ValidationMessageFor(m => m.SchoolCode)
+                        </div>
+                    </div>
+                    <div class="register-btn">
+                        <input type="submit" value="Registrovat se" />
+                    </div>
+                    <div>
+                        <a href="../Home/login">Mám již účet a chci se přihlásit</a>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+
+            </p>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+        $('#select-school').select2({
+            placeholder: "Zvol si svou školu",
+            allowClear: true
+
+        });
+
+        $('#select-class').select2({
+            placeholder: "Zvol si svou třídu",
+            allowClear: true
+
+        });
+
+
+    });
+    $('.password-boxes .fa').click(function () {
+        $(this).toggleClass('fa-eye-slash');
+        $(this).toggleClass('fa-eye');
+        if ($(this).siblings('input').attr('type') === 'text') {
+            $(this).siblings('input').attr('type', 'password');
+        } else {
+            $(this).siblings('input').attr('type', 'text');
+        }
+
+    });
+</script>
